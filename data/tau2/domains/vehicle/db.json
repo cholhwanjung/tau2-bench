@@ -1,0 +1,73 @@
+{
+  "vehicle": {
+    "ignition_state": "ON",
+    "gear_selection": "P",
+    "perf_vehicle_speed_kmh": 0.0,
+    "parking_brake_on": true,
+    "drive_mode": "normal",
+    "fuel_type": "gasoline",
+    "fuel_level_pct": 60,
+    "ev_battery_level_pct": null,
+    "range_remaining_km": 420,
+    "env_outside_temperature_c": 24.0,
+    "location": {"label": "Home", "address": "12 Maple Street, Springfield"},
+    "door_lock": true,
+    "door_child_lock_enabled": false,
+    "window_pos_pct": {"front_left": 0, "front_right": 0, "rear_left": 0, "rear_right": 0},
+    "seat_occupancy": {"front_passenger": false, "rear_left": false, "rear_right": false, "rear_child_seat_occupied": false}
+  },
+  "climate": {
+    "hvac_power_on": true,
+    "hvac_ac_on": true,
+    "hvac_auto_on": true,
+    "hvac_temperature_set_c": 22.0,
+    "hvac_fan_speed": 3,
+    "hvac_fan_direction": "face",
+    "hvac_seat_temperature": {"driver": 0, "passenger": 0}
+  },
+  "media": {"playback_state": "stopped", "now_playing_id": null, "volume": 12},
+  "navigation": {"destination": null, "waypoints": []},
+  "phone": {"active_call_contact_id": null, "sent_message_recipients": []},
+  "calendar": {
+    "evt_1": {"event_id": "evt_1", "title": "Team standup", "start": "2026-09-10T09:00", "end": "2026-09-10T09:30", "location": "300 Tech Park Drive, Springfield"},
+    "evt_2": {"event_id": "evt_2", "title": "Dentist", "start": "2026-09-12T15:00", "end": "2026-09-12T16:00", "location": "77 Health Plaza, Springfield"},
+    "evt_3": {"event_id": "evt_3", "title": "Dinner with Mom", "start": "2026-09-11T19:00", "end": "2026-09-11T21:00", "location": "45 Oak Avenue, Riverside"},
+    "evt_4": {"event_id": "evt_4", "title": "Daycare pickup", "start": "2026-09-10T17:30", "end": "2026-09-10T18:00", "location": "5 Rainbow Lane, Springfield"}
+  },
+  "user_profile": {
+    "name": "Alex Kim",
+    "home_address": "12 Maple Street, Springfield",
+    "work_address": "300 Tech Park Drive, Springfield",
+    "contacts": {
+      "c_mom": {"contact_id": "c_mom", "name": "Mom", "phone": "+1-555-0101", "favorite": true, "relation": "mother", "address": "45 Oak Avenue, Riverside"},
+      "c_jenny": {"contact_id": "c_jenny", "name": "Jenny Park", "phone": "+1-555-0102", "favorite": true, "relation": "sister", "address": "200 Lake View Road, Lakeside"},
+      "c_mike": {"contact_id": "c_mike", "name": "Mike Johnson", "phone": "+1-555-0103", "favorite": false, "relation": "friend", "address": "9 Pine Road, Springfield"},
+      "c_tom": {"contact_id": "c_tom", "name": "Tom Baker", "phone": "+1-555-0104", "favorite": false, "relation": "coworker", "address": null},
+      "c_dr_lee": {"contact_id": "c_dr_lee", "name": "Dr. Lee", "phone": "+1-555-0105", "favorite": false, "relation": "dentist", "address": "77 Health Plaza, Springfield"},
+      "c_daycare": {"contact_id": "c_daycare", "name": "Sunny Daycare", "phone": "+1-555-0106", "favorite": false, "relation": "daycare", "address": "5 Rainbow Lane, Springfield"}
+    },
+    "media_library": {
+      "m_dune_trailer": {"media_id": "m_dune_trailer", "title": "Dune: Part Two - Official Trailer", "artist": "Warner Bros.", "media_type": "video", "rating": "PG"},
+      "m_dune_ost": {"media_id": "m_dune_ost", "title": "Dune: Part Two (Original Soundtrack)", "artist": "Hans Zimmer", "media_type": "audio", "rating": "G"},
+      "m_concert_video": {"media_id": "m_concert_video", "title": "Coldplay Live at Wembley", "artist": "Coldplay", "media_type": "video", "rating": "G"},
+      "m_chill": {"media_id": "m_chill", "title": "Chill Drive Playlist", "artist": "Various Artists", "media_type": "audio", "rating": "G"},
+      "m_jazz": {"media_id": "m_jazz", "title": "Late Night Jazz", "artist": "Miles Davis", "media_type": "audio", "rating": "G"},
+      "m_kids": {"media_id": "m_kids", "title": "Kids Sing-Along", "artist": "Little Stars", "media_type": "audio", "rating": "G"},
+      "m_explicit_podcast": {"media_id": "m_explicit_podcast", "title": "Uncut Comedy Hour (Explicit)", "artist": "Dave Rowe", "media_type": "audio", "rating": "R"},
+      "m_news": {"media_id": "m_news", "title": "Morning News Briefing", "artist": "City Radio", "media_type": "audio", "rating": "G"}
+    }
+  },
+  "pois": {
+    "poi_gas_1": {"poi_id": "poi_gas_1", "name": "Shell Station Main St", "category": "gas_station", "address": "100 Main Street, Springfield", "distance_km": 1.2},
+    "poi_gas_2": {"poi_id": "poi_gas_2", "name": "Exxon Riverside", "category": "gas_station", "address": "8 River Road, Springfield", "distance_km": 3.4},
+    "poi_ev_1": {"poi_id": "poi_ev_1", "name": "ChargePoint Plaza", "category": "ev_charging", "address": "50 Center Boulevard, Springfield", "distance_km": 2.1},
+    "poi_ev_2": {"poi_id": "poi_ev_2", "name": "Supercharger Mall", "category": "ev_charging", "address": "900 Mall Drive, Springfield", "distance_km": 4.8},
+    "poi_hangang_park": {"poi_id": "poi_hangang_park", "name": "Hangang Park", "category": "park", "address": "1 Riverside Parkway, Springfield", "distance_km": 12.5},
+    "poi_italian_1": {"poi_id": "poi_italian_1", "name": "Luigi's Trattoria", "category": "italian_restaurant", "address": "22 Vine Street, Springfield", "distance_km": 0.9},
+    "poi_italian_2": {"poi_id": "poi_italian_2", "name": "Roma Kitchen", "category": "italian_restaurant", "address": "310 Harbor Street, Springfield", "distance_km": 2.6},
+    "poi_korean_1": {"poi_id": "poi_korean_1", "name": "Seoul Garden", "category": "korean_restaurant", "address": "18 Elm Street, Springfield", "distance_km": 1.5},
+    "poi_parking_1": {"poi_id": "poi_parking_1", "name": "Central Parking Garage", "category": "parking", "address": "60 Center Boulevard, Springfield", "distance_km": 0.7},
+    "poi_pharmacy_1": {"poi_id": "poi_pharmacy_1", "name": "Greenleaf Pharmacy", "category": "pharmacy", "address": "14 Main Street, Springfield", "distance_km": 1.0},
+    "poi_cafe_1": {"poi_id": "poi_cafe_1", "name": "Blue Bottle Coffee", "category": "cafe", "address": "40 Center Boulevard, Springfield", "distance_km": 1.8}
+  }
+}
