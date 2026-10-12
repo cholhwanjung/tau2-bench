@@ -53,6 +53,13 @@ from tau2.domains.telecom.environment import (
 from tau2.domains.telecom.environment import (
     get_tasks_split as telecom_domain_get_tasks_split,
 )
+from tau2.domains.vehicle.environment import (
+    get_environment as vehicle_domain_get_environment,
+)
+from tau2.domains.vehicle.environment import get_tasks as vehicle_domain_get_tasks
+from tau2.domains.vehicle.environment import (
+    get_tasks_split as vehicle_domain_get_tasks_split,
+)
 from tau2.environment.environment import Environment
 from tau2.user.user_simulator import DummyUser, UserSimulator
 from tau2.user.user_simulator_base import FullDuplexUser, HalfDuplexUser
@@ -295,6 +302,26 @@ try:
 
     # Agent factories
     registry.register_agent_factory(create_llm_agent, "llm_agent")
+    from experiments.tau_vehicle.context_agent import create_vehicle_context_agent
+    from experiments.tau_vehicle.noop_agent import create_noop_agent
+
+    registry.register_agent_factory(create_vehicle_context_agent, "llm_agent_vehicle_ctx")
+    registry.register_agent_factory(create_noop_agent, "noop_agent")
+    from experiments.tau_vehicle.ablation_agents import create_vehicle_context_noread_agent
+
+    registry.register_agent_factory(create_vehicle_context_noread_agent, "llm_agent_vehicle_ctx_noread")
+    from experiments.tau_vehicle.gate_agents import (
+        create_vehicle_context_gate_agent,
+        create_vehicle_context_lastmsg_agent,
+        create_vehicle_context_tail_agent,
+        create_vehicle_gate_agent,
+    )
+
+    registry.register_agent_factory(create_vehicle_context_lastmsg_agent, "llm_agent_vehicle_ctx_lastmsg")
+
+    registry.register_agent_factory(create_vehicle_gate_agent, "llm_agent_vehicle_gate")
+    registry.register_agent_factory(create_vehicle_context_gate_agent, "llm_agent_vehicle_ctx_gate")
+    registry.register_agent_factory(create_vehicle_context_tail_agent, "llm_agent_vehicle_ctx_tail")
     registry.register_agent_factory(
         create_llm_gt_agent,
         "llm_agent_gt",
@@ -346,6 +373,13 @@ try:
 
     registry.register_domain(knowledge_domain_get_environment, "banking_knowledge")
     registry.register_tasks(knowledge_domain_get_tasks, "banking_knowledge")
+
+    registry.register_domain(vehicle_domain_get_environment, "vehicle")
+    registry.register_tasks(
+        vehicle_domain_get_tasks,
+        "vehicle",
+        get_task_splits=vehicle_domain_get_tasks_split,
+    )
 
     logger.debug(
         f"Default components registered successfully. Registry info: {json.dumps(registry.get_info().model_dump(), indent=2)}"
