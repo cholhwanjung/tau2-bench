@@ -28,9 +28,25 @@ def get_db() -> TransactionalDB:
     return TransactionalDB.load(str(KNOWLEDGE_DB_PATH))
 
 
-def get_knowledge_base() -> KnowledgeBase:
-    """Load the knowledge base (documents) for semantic search."""
-    return KnowledgeBase.load(str(KNOWLEDGE_DOCUMENTS_DIR))
+def get_knowledge_base(documents_dir: Optional[str | Path] = None) -> KnowledgeBase:
+    """Load the knowledge base (documents) for semantic search.
+
+    Args:
+        documents_dir: Directory of document JSON files. Defaults to the
+            domain's ``documents/`` directory. An explicitly given directory
+            must exist and contain at least one document, so a typo can never
+            silently produce an empty knowledge base.
+    """
+    if documents_dir is None:
+        return KnowledgeBase.load(str(KNOWLEDGE_DOCUMENTS_DIR))
+
+    path = Path(documents_dir)
+    if not path.is_dir():
+        raise FileNotFoundError(f"Knowledge documents directory not found: {path}")
+    knowledge_base = KnowledgeBase.load(str(path))
+    if not knowledge_base.documents:
+        raise ValueError(f"No document JSON files found in {path}")
+    return knowledge_base
 
 
 def get_environment(
@@ -65,11 +81,11 @@ def get_environment(
     if db is None:
         db = get_db()
 
-    knowledge_base = get_knowledge_base()
-
     variant_name = retrieval_variant or DEFAULT_RETRIEVAL_VARIANT
     kwargs = retrieval_kwargs or {}
     variant = resolve_variant(variant_name, **kwargs)
+
+    knowledge_base = get_knowledge_base(variant.documents_dir)
 
     tools = build_tools(variant, db, knowledge_base)
     user_tools = KnowledgeUserTools(db)

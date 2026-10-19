@@ -513,6 +513,7 @@ def get_embeddings_cache() -> EmbeddingsCache:
 
 def warm_kb_cache(
     embedder_configs: Optional[List[Tuple[str, Dict[str, Any]]]] = None,
+    documents_dir: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """Pre-warm the knowledge base cache with documents and embeddings.
 
@@ -523,6 +524,10 @@ def warm_kb_cache(
     Args:
         embedder_configs: List of (embedder_type, embedder_params) tuples to pre-compute.
                          If None, only loads documents without computing embeddings.
+        documents_dir: Directory of document JSON files to warm. Defaults to the
+                       domain's documents directory. When given, the in-memory
+                       document cache is (re)loaded from it so that the
+                       pipelines built afterwards index that corpus.
 
     Returns:
         List of documents (for use in pipelines)
@@ -531,13 +536,13 @@ def warm_kb_cache(
 
     cache = get_embeddings_cache()
 
-    cached_docs = get_cached_docs()
+    cached_docs = get_cached_docs() if documents_dir is None else None
     if cached_docs is not None:
         print(f"✅ Using in-memory cached documents ({len(cached_docs)} docs)")
         docs = cached_docs
     else:
         print("🔄 Loading documents...")
-        knowledge_base = get_knowledge_base()
+        knowledge_base = get_knowledge_base(documents_dir)
         docs = [
             {"id": doc.id, "text": doc.content, "title": doc.title}
             for doc in knowledge_base.documents.values()

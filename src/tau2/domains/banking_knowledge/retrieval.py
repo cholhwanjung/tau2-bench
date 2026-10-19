@@ -143,15 +143,20 @@ def format_full_knowledge_base(knowledge_base: KnowledgeBase) -> str:
 
 
 def get_or_create_docs(knowledge_base: KnowledgeBase) -> List[Dict[str, Any]]:
-    """Get documents from the knowledge base for indexing (cached)."""
-    cached_docs = get_cached_docs()
-    if cached_docs is not None:
-        return cached_docs
+    """Get documents from the knowledge base for indexing (cached).
 
+    The in-process cache is reused only when it holds exactly this knowledge
+    base's documents, so a knowledge base loaded from a different directory
+    (e.g. a rewritten corpus) is never served another corpus' documents.
+    """
     docs = [
         {"id": doc.id, "text": doc.content, "title": doc.title}
         for doc in knowledge_base.documents.values()
     ]
+    cached_docs = get_cached_docs()
+    if cached_docs is not None and cached_docs == docs:
+        return cached_docs
+
     set_cached_docs(docs)
     return docs
 
@@ -403,6 +408,9 @@ class RetrievalVariant:
     grep: Optional[GrepSpec] = None  # None -> no grep tool
     shell: Optional[ShellSpec] = None  # None -> no shell tool
     supports_top_k: bool = False
+    # Directory of document JSON files to load instead of the domain default.
+    # Same ids/titles, different content -> swaps the corpus the agent sees.
+    documents_dir: Optional[Path] = None
 
 
 def all_tools_variant(
@@ -643,11 +651,15 @@ def resolve_variant(
     grep_top_k: Optional[int] = None,
     case_sensitive: Optional[bool] = None,
     reranker_min_score: Optional[int] = None,
+    documents_dir: Optional[str | Path] = None,
     **_extra: Any,
 ) -> RetrievalVariant:
     """Look up a variant by name and apply optional overrides.
 
     Creates a copy of the registered variant so the original is not mutated.
+
+    ``documents_dir`` makes the environment load the knowledge base from that
+    directory instead of the domain default (same variant, different corpus).
 
     Raises:
         ValueError: If the variant name is not found.
@@ -679,6 +691,8 @@ def resolve_variant(
         variant.kb_search_bm25.reranker_min_score = reranker_min_score
     if reranker_min_score is not None and variant.kb_search_dense is not None:
         variant.kb_search_dense.reranker_min_score = reranker_min_score
+    if documents_dir is not None:
+        variant.documents_dir = Path(documents_dir)
 
     return variant
 

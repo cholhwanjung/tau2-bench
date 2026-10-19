@@ -562,8 +562,9 @@ def run_tasks(
                 [retrieval_config],
                 kwargs,
             )
-        warm_kb_cache(embedder_configs)
-        knowledge_base = get_knowledge_base()
+        documents_dir = kwargs.get("documents_dir")
+        warm_kb_cache(embedder_configs, documents_dir=documents_dir)
+        knowledge_base = get_knowledge_base(documents_dir)
         policy_override = get_info_policy_override(
             retrieval_config, knowledge_base, **kwargs
         )
