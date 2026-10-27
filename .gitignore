@@ -224,3 +224,14 @@ data/simulations/.credentials/
 
 # Cursor IDE
 .cursor/
+
+# banking_knowledge facts extraction cache (experiments/tau_knowledge)
+data/.facts_cache/
+
+# Experiment design/result notes (RESEARCH-*, REVIEW-*, RESULTS-*, RETRO-* docs and figures): local only, never committed
+experiment-notes/
+
+# Working notes kept at the repo root (experiment plans, run logs, assistant instructions): local only, never committed
+/PLAN-*.md
+/NIGHT-LOG-*.md
+/CLAUDE.md
